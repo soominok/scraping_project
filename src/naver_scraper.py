@@ -35,8 +35,9 @@ def scrape_naver_place_info(place_quote: str, start_date, end_date) -> dict:
 
     return place_info
 
-def scrape_naver_place_review(place_quote: str) -> dict:
-    place_id = scrape_naver_place_info(place_quote)['place_id']
+def scrape_naver_place_review(place_quote: str, start_date, end_date) -> dict:
+    place_id = scrape_naver_place_info(place_quote, start_date, end_date)['place_id']
+
     cookies = {
         'PLACE_LANGUAGE': 'ko',
         'NNB': 'OSZ3ULFOWMGGQ',
@@ -194,11 +195,13 @@ def scrape_naver_place_review(place_quote: str) -> dict:
             'contents': data[2]['data']['visitorReviews']['items'][cont_idx]['body'],
             'update_at': data[2]['data']['visitorReviews']['items'][cont_idx]['representativeVisitDateTime'],
             'place_id': place_id,
-            'name': data[2]['data']['businessName']
+            'name': ''
+            # data[2]['data']['businessName']
         }
         
         place_reviews.append(place_review)
     
-    print(place_review)
+    print('리뷰 수: ', len(place_reviews))
+    print(place_reviews)
 
     return place_review

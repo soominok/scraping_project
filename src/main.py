@@ -1,6 +1,6 @@
 import time
 from datetime import datetime, timedelta
-from naver_scraper import scrape_naver_place_info
+from naver_scraper import scrape_naver_place_info, scrape_naver_place_review
 # from message_queue import consume_messages, publish_message
 # from database import get_db
 import urllib
@@ -20,6 +20,7 @@ if __name__ == "__main__":
         end_date = datetime.now()
         start_date = end_date - timedelta(days=365 * 2)
         scrape_naver_place_info(place_quote, start_date, end_date)
+        scrape_naver_place_review(place_quote, start_date, end_date)
 
     # # 컨슈머 시작
     # consume_messages(message_callback)
