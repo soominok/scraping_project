@@ -116,7 +116,7 @@ def scrape_kakao_place_review(place_name:str, start_date) -> dict:
                 'nickname': review['meta']['owner']['nickname'],
                 'contents': review['contents'],
                 'rating': review['star_rating'],
-                'update_at': review['updated_at'],
+                'updated_at': review['updated_at'],
                 'place_id': place_id,
                 'place_name': place_name,
                 'platform': 'kakao'
