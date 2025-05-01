@@ -1,10 +1,14 @@
-FROM python:3.10-slim
+FROM python:3.10
 
 WORKDIR /app
 
-COPY . /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-RUN pip install --upgrade pip
-RUN pip install requests kafka-python pymongo mysql-connector-python beautifulsoup4
+COPY . .
 
-CMD ["python", "main.py"]
+
+#RUN pip install --upgrade pip
+#RUN pip install requests kafka-python pymongo mysql-connector-python beautifulsoup4
+
+# CMD ["python", "main.py"]
