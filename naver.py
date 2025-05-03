@@ -39,7 +39,7 @@ def scrape_naver_place_info(place_name):
 
     return naver_info
 
-    
+
 
 def scrape_naver_place_review(place_name, start_date) -> list:
     
@@ -92,4 +92,5 @@ def scrape_naver_place_review(place_name, start_date) -> list:
     
     print('리뷰 수 : ', naver_reviews)                
     return naver_reviews
-    
+
+scrape_naver_place_info('장인 닭갈비 강남점')

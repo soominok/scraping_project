@@ -89,8 +89,8 @@ if __name__ == "__main__":
     jobs = [
         {'platform': 'naver', 'place_name': '바틀드'},
         {'platform': 'kakao', 'place_name': '바틀드'},
-        {'platform': 'naver', 'place_name': '장안닭갈비 강남점'},
-        {'platform': 'kakao', 'place_name': '장안닭갈비 강남점'}
+        {'platform': 'naver', 'place_name': '장인닭갈비 강남점'},
+        {'platform': 'kakao', 'place_name': '장인닭갈비 강남점'}
     ]
   
     

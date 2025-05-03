@@ -70,10 +70,8 @@ services:
 
   producer:
     build: .
-    # command: ["sh", "-c", "python -m src.kafka.producer && sleep infinity"]
     command:
-      sh -c "python -m src.kafka.producer && while true; do sleep 3600; done"  
-      # sh -c "python -c 'from src.db.db import init_db; init_db()' && python -m src.kafka.producer && while true; do sleep 3600; done"
+      sh -c "python -m src.kafka.producer"  #  && while true; do sleep 3600; done
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       MYSQL_HOST: db

@@ -23,14 +23,13 @@ def scrape_kakao_place_info(place_name:str) -> dict:
 
     url = 'https://dapi.kakao.com/v2/local/search/keyword.json'
 
-
     req = requests.get(url, headers = headers, params = params)
     html = req.text
     api_data = json.loads(html)
-
+    print(api_data)
+    time.sleep(0.1)
     place_id = api_data['documents'][0]['id']
-
-         
+    
     headers = {
         'accept': 'application/json, text/plain, */*',
         'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -41,17 +40,14 @@ def scrape_kakao_place_info(place_name:str) -> dict:
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15',
-        # 'cookie': 'webid=0296fdfa779647ada4e55d7e0b4debf8; webid_ts=1745665477366; __T_=1; __T_SECURE=1; JSESSIONID=42C10553B313F8C1BDB8A9419652F361; __T_=1; __T_SECURE=1; _T_ANO=m4bVO9IW6OuDb+3e9AZbY6n6JvYGB83UYKGhBjr+wbcas3s+dco7RMufJZaWyAsKdCACmGopksPYUlavtzEcEeNVi96exOFrCMFG6PjtpJzlcSIl3nnWeqzRRUCmhFyXNorkaEdgJfs4h9WihSz0CNf/jiO1YDiO9e0Cae5Uz2mS/sbqDANo1IOhpC3Gp2z/UG3aM4t+odRJlSIbBGgJPzQ3bDOyea49ffsyWcT2bJQzY3nKmWomX5A7ZUGIC/r06vvrK6p80gcbjJnlOBLuhRNxaEAPE8sfeSQQhpKnWDEXbk6UL3Nl/dLvaAXIWBzaCeD27sMHCkVnQu/pf579+g==',
     }
     
     
     k_in_url = f'https://place-api.map.kakao.com/places/panel3/{place_id}'
     req = requests.get(k_in_url, headers = headers)
-    time.sleep(0.1)
     html = req.text
 
     data = json.loads(html)
-    # print(data)
     try:
         if len(data['summary']['phone_numbers']) > 0:
             kakao_info = {
@@ -81,7 +77,7 @@ def scrape_kakao_place_info(place_name:str) -> dict:
 def scrape_kakao_place_review(place_name:str, start_date) -> dict:
     
     place_id = scrape_kakao_place_info(place_name)['place_id']
-
+    
 
     headers = {
         'accept': 'application/json, text/plain, */*',
@@ -94,7 +90,7 @@ def scrape_kakao_place_review(place_name:str, start_date) -> dict:
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15',
-   }
+    }
 
     k_re_url = f'https://place-api.map.kakao.com/places/tab/reviews/kakaomap/{place_id}?order=RECOMMENDED&only_photo_review=false'
 
@@ -128,6 +124,9 @@ def scrape_kakao_place_review(place_name:str, start_date) -> dict:
         else:
             continue
 
-    print('리뷰 수: ', len(kakao_reviews))
+    print(kakao_reviews)
+
 
     return kakao_reviews
+
+scrape_kakao_place_info('장인닭갈비 강남점')

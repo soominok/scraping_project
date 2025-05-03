@@ -84,27 +84,45 @@ def save_place_info(place_id, place_name, address, tel, platform, task_id):
         db.close()
         
         
-def save_place_review(result_reviews, task_id):
+def save_place_review(review_id, user_id, nickname, contents, rating, updated_at, place_id, place_name, platform, task_id):
     db = SessionLocal()
     try:
-        reviews = []
-        for row in result_reviews:
-            if row['platform'] == 'naver':
-                reviews.append(NaverReview(**row))
-                review_task = NaverReview(
-                    task_id = task_id
-                )
-            if row['platform'] == 'kakao':
-                reviews.append(KakaoReview(**row))
-                review_task = KakaoReview(
-                    task_id = task_id
-                )
                 
-        db.add_all(reviews)
+        if platform == 'naver':
+            place_review = NaverReview(
+                review_id = review_id,
+                user_id = user_id, 
+                nickname = nickname,
+                contents = contents,
+                rating = rating,
+                updated_at = updated_at,
+                place_id = place_id,
+                place_name = place_name,
+                platform = platform,
+                task_id = task_id
+            )
+            
+        if platform == 'kakao':
+            place_review = KakaoReview(
+                review_id = review_id,
+                user_id = user_id, 
+                nickname = nickname,
+                contents = contents,
+                rating = rating,
+                updated_at = updated_at,
+                place_id = place_id,
+                place_name = place_name,
+                platform = platform,
+                task_id = task_id
+            )
+            
         
-        db.add(review_task)
-        
+        db.add(place_review)
         db.commit()
+        
+    except Exception as e:
+        print(f"DB (review) failed: {e}")
+    
     finally:
         db.close()
         

@@ -21,10 +21,8 @@ consumer.subscribe(['scraper-tasks'])
 
 def process_message(msg):
     data = json.loads(msg.value().decode('utf-8'))
-    print(data)
     
     try:    
-        print(f"Received message: {data}")
         task_id = data['task_id']
         platform = data['platform']
         place_name = data['place_name']
@@ -42,13 +40,19 @@ def process_message(msg):
         else:
             raise Exception("Unknown platform")
         
+        print(result_reviews)
+        
         try:
             save_place_info(result_info['place_id'], result_info['place_name'], result_info['address'], result_info['tel'], platform, task_id)
         except Exception as e:
             print(f"Info Task {task_id} failed: {e}")
             
         try:
-            save_place_review(result_reviews, task_id)
+            for result_review in result_reviews:
+                
+                save_place_review(result_review['review_id'], result_review['user_id'], result_review['nickname'], 
+                                result_review['contents'], result_review['rating'], result_review['updated_at'], 
+                                result_review['place_id'], result_review['place_name'], platform, task_id)
         except Exception as e:
             print(f"Review Task {task_id} failed: {e}")
           

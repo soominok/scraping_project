@@ -16,7 +16,7 @@ class ScrapeJob(Base):
     __tablename__ = "scraping_jobs"
     id = Column(Integer, primary_key = True, autoincrement = True)
     task_id = Column(String(36), unique = True)
-    status = Column(Enum('IN_PROGRESS', 'SUCCESS', 'FAILED'))
+    status = Column(String(36))
     platform = Column(String(10))
     place_name = Column(String(50))
     created_at = Column(DateTime)
@@ -56,14 +56,12 @@ class NaverReview(Base):
     updated_at = Column(DateTime)
     place_id = Column(String(50), nullable = False)
     place_name = Column(String(100), nullable = False)
-    updated_at = Column(DateTime)
     platform = Column(String(100), nullable = False)
     task_id = Column(String(50))
 
 
 class KakaoReview(Base):
     __tablename__ = "kakao_reviews"
-
     id = Column(Integer, primary_key = True, autoincrement = True)
     review_id = Column(String(50), nullable = False, unique = True)
     user_id = Column(String(50), nullable = False)
@@ -73,7 +71,6 @@ class KakaoReview(Base):
     updated_at = Column(DateTime)
     place_id = Column(String(50), nullable = False)
     place_name = Column(String(100), nullable = False)
-    updated_at = Column(DateTime)
     platform = Column(String(100), nullable = False)
     task_id = Column(String(50))
     
