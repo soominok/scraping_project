@@ -1,0 +1,8 @@
+
+confluent_kafka
+requests
+SQLAlchemy
+mysql-connector-python
+pymysql
+dotenv
+
